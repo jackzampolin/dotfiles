@@ -66,6 +66,9 @@ EOF
     peers)
       curl -s localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id) \(.remote_ip)"'
       ;;
+    consstate)
+      curl -s localhost:26657/consensus_state | jq '.result.round_state.height_vote_set[].prevotes_bit_array'
+      ;;
     *)
       commands
       ;;
