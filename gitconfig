@@ -1,0 +1,16 @@
+[user]
+	name = Jack Zampolin
+	email = jack.zampolin@gmail.com
+	signingkey = 888DC4CF24AAFC63
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	ci = commit
+	cl = clone
+[core]
+	editor = nano
+[commit]
+	gpgsign = true
