@@ -10,6 +10,7 @@ fudging commands:
   wifi   -> cycle your wifi on and off
   images -> clean up docker images by removing dangling ones
   ds     -> delete all .DS_Store files
+  sync   -> check the sync difference between two nodes
   remote -> sync a fork with the upstream branch of choice
   port   -> find which process is running on a port
   peers  -> dump the peers of the cosmos chain at localhost:26657
@@ -58,16 +59,35 @@ EOF
       fi
       ;;
     sync)
+      if [ -z "$2" ]; then
+        echo "Need to input a rpc endpoint for a node that is behind chain tip"
+        return 1
+      fi
+      if [ -z "$3" ]; then
+        echo "Need to input a rpc endpoint for a node that is on same network at chain tip"
+        return 1
+      fi
       date
-      TIP=$(curl -s localhost:26657/status | jq -r '.result.sync_info.latest_block_height')
-      BEHIND=$(curl -s hub.technofractal.com:26657/status | jq -r '.result.sync_info.latest_block_height')
-      echo "hub.technofractal.com is $(expr $TIP - $BEHIND) blocks behind sentries"
+      local behind=$(curl -s $2/status | jq -r '.result.sync_info.latest_block_height')
+      local tip=$(curl -s $3/status | jq -r '.result.sync_info.latest_block_height')
+      local blocks=$(expr $tip - $behind)
+      echo "$2 is $blocks blocks behind $3"
+      echo "waiting for 60 seconds to estimate sync speed..."
+      sleep 60
+      local behind1=$(curl -s $2/status | jq -r '.result.sync_info.latest_block_height')
+      local tip1=$(curl -s $3/status | jq -r '.result.sync_info.latest_block_height')
+      local blocks1=$(expr $tip1 - $behind1)
+      local permin=$(expr $blocks - $blocks1)
+      echo "syncing $permin per minute $(echo "scale=0; ($blocks1/$permin)/1" | bc) min to tip"
       ;;
     peers)
       curl -s localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id) \(.remote_ip)"'
       ;;
     consstate)
       curl -s localhost:26657/consensus_state | jq '.result.round_state.height_vote_set[].prevotes_bit_array'
+      ;;
+    online)
+      curl -s localhost:26657/consensus_state | jq '.result.round_state.height_vote_set[0].prevotes_bit_array'
       ;;
     *)
       commands
