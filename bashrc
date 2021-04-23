@@ -106,3 +106,4 @@ makegif() {
   fi
   ffmpeg -i $1 -s 600x400 -pix_fmt rgb8 -r 10 -f gif - | gifsicle --optimize=0 --delay=10 > "$(basename $1 .mp4).gif"
 }
+
