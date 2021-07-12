@@ -68,14 +68,14 @@ EOF
         return 1
       fi
       date
-      local behind=$(curl -s $2/status | jq -r '.result.sync_info.latest_block_height')
-      local tip=$(curl -s $3/status | jq -r '.result.sync_info.latest_block_height')
+      local behind=$(curl -sL $2/status | jq -r '.result.sync_info.latest_block_height')
+      local tip=$(curl -sL $3/status | jq -r '.result.sync_info.latest_block_height')
       local blocks=$(expr $tip - $behind)
       echo "$2 is $blocks blocks behind $3"
       echo "waiting for 60 seconds to estimate sync speed..."
       sleep 60
-      local behind1=$(curl -s $2/status | jq -r '.result.sync_info.latest_block_height')
-      local tip1=$(curl -s $3/status | jq -r '.result.sync_info.latest_block_height')
+      local behind1=$(curl -s: $2/status | jq -r '.result.sync_info.latest_block_height')
+      local tip1=$(curl -sL $3/status | jq -r '.result.sync_info.latest_block_height')
       local blocks1=$(expr $tip1 - $behind1)
       local permin=$(expr $blocks - $blocks1)
       echo "syncing $permin per minute $(echo "scale=0; ($blocks1/$permin)/1" | bc) min to tip"
