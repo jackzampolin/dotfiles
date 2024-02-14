@@ -15,9 +15,11 @@ alias cdj="cd $GITHUB/jackzampolin/"
 alias cdc="cd $GITHUB/cosmos/"
 alias cda="cd $GITHUB/althea-net/"
 alias cdo="cd $GITHUB/ovrclk/"
+alias cdr="cd $GITHUB/rollchains/"
 alias cdp="cd $GITHUB/peggyjv/"
 alias cdt="cd $GITHUB/tendermint/"
 alias cdbi="cd $GITHUB/blockstackinc/"
+alias cds="cd $GITHUB/strangelove-ventures/"
 alias cdgh="cd $GITHUB/"
 
 # One letter commands for editor, finder, refresh and clear

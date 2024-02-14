@@ -25,7 +25,8 @@ export GOBIN=$GOPATH/bin
 export GITHUB=$GOPATH/src/github.com
 
 # Add [ $GOBIN, $HOME/bin, /usr/local/bin, /usr/local/sbin, /usr/local/heroku/bin, $HOME/.rvm/bin, $HOME/bin, /usr/local/go/bin ] to path
-export PATH=$PATH:$GOBIN:$HOME/.rvm/bin:/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/heroku/bin:$HOME/.cargo/bin:$HOME/bin:$HOME/.daml/bin
+export 
+PATH=$PATH:$GOBIN:/opt/homebrew/bin:$HOME/.rvm/bin:/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/heroku/bin:$HOME/.cargo/bin:$HOME/bin:$HOME/.daml/bin
 
 # Enable GPG signing in git
 GPG_TTY=$(tty)

@@ -107,3 +107,26 @@ makegif() {
   ffmpeg -i $1 -s 600x400 -pix_fmt rgb8 -r 10 -f gif - | gifsicle --optimize=0 --delay=10 > "$(basename $1 .mp4).gif"
 }
 
+
+wenupgrade(){
+  local cheight=$(curl -s https://api.cosmostation.io/v1/status | jq -r '.block_height')
+  local uheight=6910000
+  local blktime=7.5
+  local secs="$(echo "scale=0; (($uheight - $cheight) * $blktime)/1" | bc)"
+  printf "Hub upgrade in %dh %dm\n" $((secs / (60 * 60))) $(((secs % (60*60))/60))
+}
+
+gke() {
+  gcloud config set project $1
+  CLUSTER_ROW=$(gcloud container clusters list | grep $2)
+  CLUSTER_NAME=$(echo $CLUSTER_ROW | awk '{ print $1 }')
+  REGION=$(echo $CLUSTER_ROW | awk '{ print $2 }')
+  echo "Connecting to cluster $CLUSTER_NAME in region $REGION"
+  gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+}
+
+gke_jump() {
+  gke $1 horcrux
+  JUMPBOX_EXTERNAL_IP=$(gcloud compute instances list | grep jumpbox | awk '{ print $5}')
+  sshuttle -r $USER@$JUMPBOX_EXTERNAL_IP 0.0.0.0/0 -vv
+}
