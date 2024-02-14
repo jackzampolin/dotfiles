@@ -84,7 +84,11 @@ EOF
       curl -s localhost:26657/net_info | jq -r '.result.peers[] | "\(.node_info.id) \(.remote_ip)"'
       ;;
     consstate)
-      curl -s localhost:26657/consensus_state | jq '.result.round_state.height_vote_set[].prevotes_bit_array'
+      if [ -z "$2" ]; then
+        echo "Need to input a rpc endpoint for a node on a stopped chain that is coming online"
+        return 1
+      fi
+      curl -s $2/consensus_state | jq '.result.round_state.height_vote_set[].prevotes_bit_array'
       ;;
     online)
       curl -s localhost:26657/consensus_state | jq '.result.round_state.height_vote_set[0].prevotes_bit_array'
