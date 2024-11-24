@@ -40,12 +40,18 @@ alias cdgh="cd $GITHUB/"
 #
 # Basic commands
 alias e='code'                  # Editor
-alias r='source ~/.bash_profile' # Reload shell
 alias c='clear'                 # Clear screen
 alias ls='ls -AFCG'            # Enhanced ls
 alias tf='terraform'           # Terraform
 alias weather='curl wttr.in'   # Weather info
 alias hgrep='history | grep'   # Search history
+
+# Shell reload
+if [ -n "$ZSH_VERSION" ]; then
+    alias r='source ~/.zshrc'
+else
+    alias r='source ~/.bash_profile'
+fi
 
 #
 # Clipboard Operations
