@@ -89,35 +89,28 @@ makegif() {
     gifsicle --optimize=0 --delay=10 > "$(basename "$1" .mp4).gif"
 }
 
-#
 # Dotfiles Management
-#
 sync() {
-    local -a files=(
-        "bash_profile"
-        "zshrc"
-        "gitconfig"
-    )
+   case "$(basename "$SHELL")" in
+       bash)
+           cp "$HOME/.dotfiles/bash_profile" "$HOME/.bash_profile"
+           echo "Updated .bash_profile"
+           source "$HOME/.bash_profile"
+           ;;
+       zsh)
+           cp "$HOME/.dotfiles/zshrc" "$HOME/.zshrc"
+           echo "Updated .zshrc"
+           source "$HOME/.zshrc"
+           ;;
+       *)
+           echo "Unsupported shell: $SHELL"
+           return 1
+           ;;
+   esac
 
-    for file in "${files[@]}"; do
-        local src="$HOME/.dotfiles/$file"
-        local dst="$HOME/.$file"
-
-        if [ -f "$src" ]; then
-            echo "Overwriting $dst with $src"
-            cp "$src" "$dst"
-        else
-            echo "Source file '$src' does not exist, skipping..."
-        fi
-    done
-
-    if [ -f "$HOME/.bash_profile" ]; then
-        source "$HOME/.bash_profile"
-    elif [ -f "$HOME/.zshrc" ]; then
-        source "$HOME/.zshrc"
-    else
-        echo "No shell profile found to source."
-    fi
+   # Always sync gitconfig
+   cp "$HOME/.dotfiles/gitconfig" "$HOME/.gitconfig"
+   echo "Updated .gitconfig"
 }
 
 #
