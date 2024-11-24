@@ -23,7 +23,7 @@ fi
 __set_virtualenv() {
     if [ -n "$VIRTUAL_ENV" ]; then
         if [ -n "$ZSH_VERSION" ]; then
-            PYTHON_VIRTUALENV="${BLUE}[$(basename "$VIRTUAL_ENV")]${COLOR_NONE} "
+            PYTHON_VIRTUALENV="%F{blue}[$(basename "$VIRTUAL_ENV")]%f "
         else
             PYTHON_VIRTUALENV="${BLUE}[$(basename "$VIRTUAL_ENV")]${COLOR_NONE} "
         fi
