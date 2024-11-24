@@ -40,6 +40,7 @@ __git_prompt() {
 if [ -n "$BASH_VERSION" ]; then
     PROMPT_COMMAND='__set_virtualenv; __git_prompt; PS1="\n${c_path}\w${c_reset} \$(__git_prompt) :> "'
 elif [ -n "$ZSH_VERSION" ]; then
+    echo "using zsh version"
     setopt PROMPT_SUBST
     PROMPT="%n@%m %{$c_path%}%~%{$c_reset%} \$(__git_prompt) :> "
     RPROMPT="%{$PYTHON_VIRTUALENV%}"
