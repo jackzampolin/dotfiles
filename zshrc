@@ -26,3 +26,5 @@ setopt interactivecomments
 
 # Enable advanced tab completion
 zstyle ':completion:*' menu select
+
+echo "Logged in as $USER at $(hostname). The time is $(date "+%H:%M"), good luck..."

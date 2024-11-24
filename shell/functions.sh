@@ -93,12 +93,31 @@ makegif() {
 # Dotfiles Management
 #
 sync() {
-    local files=(".bash_profile" ".gitconfig")
+    local -a files=(
+        "bash_profile"
+        "zshrc"
+        "gitconfig"
+    )
+
     for file in "${files[@]}"; do
-        echo "Overwriting $HOME/$file with $HOME/.dotfiles/${file#.}"
-        cp "$HOME/.dotfiles/${file#.}" "$HOME/$file"
+        local src="$HOME/.dotfiles/$file"
+        local dst="$HOME/.$file"
+
+        if [ -f "$src" ]; then
+            echo "Overwriting $dst with $src"
+            cp "$src" "$dst"
+        else
+            echo "Source file '$src' does not exist, skipping..."
+        fi
     done
-    source "$HOME/.bash_profile"
+
+    if [ -f "$HOME/.bash_profile" ]; then
+        source "$HOME/.bash_profile"
+    elif [ -f "$HOME/.zshrc" ]; then
+        source "$HOME/.zshrc"
+    else
+        echo "No shell profile found to source."
+    fi
 }
 
 #
