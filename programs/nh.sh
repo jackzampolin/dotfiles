@@ -2,18 +2,29 @@ function nh() {
    local NOHUP_DIR="$HOME/.nohup"
    mkdir -p "$NOHUP_DIR"
 
-   case "$1" in
-       "run")
-           shift
-           local DESC="$1"
-           shift
-           local LOG="$NOHUP_DIR/${DESC}.log"
-           local PID_FILE="$NOHUP_DIR/${DESC}.pid"
-           nohup "$@" > "$LOG" 2>&1 &
-           echo $! > "$PID_FILE"
-           echo "Started $DESC (PID: $!)"
-           echo "Log: $LOG"
-           ;;
+    case "$1" in
+        "run")
+            shift
+            local DESC="$1"
+            shift
+            local LOG="$NOHUP_DIR/${DESC}.log"
+            local PID_FILE="$NOHUP_DIR/${DESC}.pid"
+            
+            # If in virtualenv, construct activation command
+            local VENV_CMD=""
+            if [ -n "$VIRTUAL_ENV" ]; then
+                VENV_CMD="source $VIRTUAL_ENV/bin/activate; "
+            fi
+            
+            # Run command with venv if needed
+            nohup bash -c "$VENV_CMD $*" > "$LOG" 2>&1 &
+            echo $! > "$PID_FILE"
+            echo "Started $DESC (PID: $!)"
+            echo "Log: $LOG"
+            ;;
+        # ... rest of the nh function stays the same ...
+    esac
+
        "ls")
            echo "Running processes:"
            for pid_file in "$NOHUP_DIR"/*.pid; do
