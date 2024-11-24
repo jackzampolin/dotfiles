@@ -25,19 +25,32 @@ function hf() {
            echo "Cleaned $2"
            ;;
        "download")
-           if [ -z "$2" ]; then
-               echo "Usage: hf download <model-name>"
-               echo "Example: hf download meta-llama/Llama-2-7b"
-               return 1
-           fi
-           python -c "from huggingface_hub import snapshot_download; snapshot_download('$2')"
+            if [ -z "$2" ]; then
+                echo "Usage: hf download <model-name>"
+                echo "Example: hf download meta-llama/Llama-2-7b"
+                return 1
+            fi
+            local LOG="$NOHUP_DIR/hf-${2//\//-}.log"
+            echo "Starting download of $2 in background"
+            nohup python -c "from huggingface_hub import snapshot_download; snapshot_download('$2')" > "$LOG" 2>&1 &
+            echo "PID: $!"
+            echo "Log: $LOG"
            ;;
-       *)
-           echo "Usage:"
-           echo "  hf ls                    # List cached models"
-           echo "  hf size                  # Show size of cached models"
-           echo "  hf clean <model>         # Remove model from cache"
-           echo "  hf download <model>      # Download model to cache"
-           ;;
+        "logs")
+            if [ -z "$2" ]; then
+                echo "Usage: hf logs <model-name>"
+                return 1
+            fi
+            tail -f "$NOHUP_DIR/hf-${2//\//-}.log"
+            ;;
+        *)
+            echo "Usage:"
+            echo "  hf ls                    # List cached models"
+            echo "  hf size                  # Show size of cached models"
+            echo "  hf clean <model>         # Remove model from cache"
+            echo "  hf download <model>      # Download model in background"
+            echo "  hf logs <model>          # Show download logs"
+            ;;
+
    esac
 }
