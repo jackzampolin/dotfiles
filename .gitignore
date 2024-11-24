@@ -1,7 +1,4 @@
 # A file for api keys and such that you want to set in ENV
 # Or programs that you don't want committed to git
-secrets.bash
-
-# A folder to hold important files
-secrets/
+shell/secrets.sh
 cron.log
