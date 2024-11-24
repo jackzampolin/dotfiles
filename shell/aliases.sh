@@ -18,26 +18,21 @@ esac
 # GitHub Navigation
 #
 
+#
+# GitHub Navigation
+#
 
-# Define the GitHub directories
-github_dirs=(
-    "iqlusioninc"
-    "jackzampolin"
-    "cosmos"
-    "althea-net"
-    "ovrclk"
-    "rollchains"
-    "peggyjv"
-    "tendermint"
-    "blockstackinc"
-    "strangelove-ventures"
-)
-
-# Create cd aliases for each directory
-for key in "${(@k)github_dirs}"; do
-    alias "cd$key"="cd $GITHUB/${github_dirs[$key]}"
-done
-
+# Create individual cd aliases for each directory
+alias cdi="cd $GITHUB/iqlusioninc"
+alias cdj="cd $GITHUB/jackzampolin"
+alias cdc="cd $GITHUB/cosmos"
+alias cda="cd $GITHUB/althea-net"
+alias cdo="cd $GITHUB/ovrclk"
+alias cdr="cd $GITHUB/rollchains"
+alias cdp="cd $GITHUB/peggyjv"
+alias cdt="cd $GITHUB/tendermint"
+alias cdbi="cd $GITHUB/blockstackinc"
+alias cds="cd $GITHUB/strangelove-ventures"
 alias cdgh="cd $GITHUB/"
 
 #

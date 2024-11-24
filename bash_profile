@@ -2,7 +2,7 @@
 dots="$HOME/.dotfiles"
 
 # Load common shell files
-for file in "$dots/config"/*.sh; do
+for file in "$dots/shell"/*.sh; do
     [ -r "$file" ] && . "$file"
 done
 
