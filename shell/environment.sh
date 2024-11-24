@@ -14,29 +14,52 @@ c_reset="\e[0m"
 c_path="\e[0;31m"
 c_git_clean="\e[0;32m"
 c_git_dirty="\e[0;31m"
-BLUE="\e[1;34m"
-COLOR_NONE="\e[0m"
 
-# Set virtualenv prompt
+if [ -n "$ZSH_VERSION" ]; then
+    # ZSH colors
+    BLUE="%F{blue}"
+    COLOR_NONE="%f"
+else
+    # Bash colors
+    BLUE="\[\033[1;34m\]"
+    COLOR_NONE="\[\e[0m\]"
+fi
+
+# Set virtualenv prompt with zsh/bash compatibility
 __set_virtualenv() {
-    if [ -n "$VIRTUAL_ENV" ]; then
-        PYTHON_VIRTUALENV="${BLUE}[$(basename "$VIRTUAL_ENV")]${COLOR_NONE} "
-    else
-        PYTHON_VIRTUALENV=""
-    fi
+   if [ -n "$VIRTUAL_ENV" ]; then
+       if [ -n "$ZSH_VERSION" ]; then
+           PYTHON_VIRTUALENV="%F{blue}[$(basename "$VIRTUAL_ENV")]%f "
+       else
+           PYTHON_VIRTUALENV="${BLUE}[$(basename "$VIRTUAL_ENV")]${COLOR_NONE} "
+       fi
+   else
+       PYTHON_VIRTUALENV=""
+   fi
 }
 
-# Function to get the git prompt
+
 __git_prompt() {
-    local git_status="$(git status --porcelain 2>/dev/null)"
-    if [ -n "$git_status" ]; then
-        echo -e "${c_git_dirty}±${c_reset}"
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        return 0
+    fi
+    git_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
+    if [ -n "$ZSH_VERSION" ]; then
+        if git diff --quiet 2>/dev/null >&2; then
+            echo " [%F{green}${git_branch}%f]"
+        else
+            echo " [%F{red}${git_branch}%f]"
+        fi
     else
-        echo -e "${c_git_clean}✓${c_reset}"
+        # Bash version stays the same
+        if git diff --quiet 2>/dev/null >&2; then
+            echo " [\[\033[0;32m\]${git_branch}\[\033[0m\]]"
+        else
+            echo " [\[\033[0;31m\]${git_branch}\[\033[0m\]]"
+        fi
     fi
 }
 
-# prompt.sh
 if [ -n "$ZSH_VERSION" ]; then
     # ZSH version
     PS1=$'\n%F{red}%1~%f$(__git_prompt)%f :> '
