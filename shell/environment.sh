@@ -36,16 +36,13 @@ __git_prompt() {
     fi
 }
 
-# Configure prompt
-if [ -n "$BASH_VERSION" ]; then
-    PROMPT_COMMAND='__set_virtualenv; __git_prompt; PS1="\n${c_path}\w${c_reset} \$(__git_prompt) :> "'
-elif [ -n "$ZSH_VERSION" ]; then
-    echo "using zsh version"
-    setopt PROMPT_SUBST
-    PROMPT="%n@%m %{$c_path%}%~%{$c_reset%} \$(__git_prompt) :> "
-    RPROMPT="%{$PYTHON_VIRTUALENV%}"
-else
-    PROMPT="\n\w \$ "
+# prompt.sh
+if [ -n "$ZSH_VERSION" ]; then
+    # ZSH version
+    PS1=$'\n%F{red}%1~%f$(__git_prompt)%f :> '
+elif [ -n "$BASH_VERSION" ]; then
+    # Bash version
+    PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(__git_prompt)\[\033[0m\]:> '
 fi
 
 #
