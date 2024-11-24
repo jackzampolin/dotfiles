@@ -20,18 +20,18 @@ fi
 
 # Link appropriate rc file based on shell
 case "$(basename "$SHELL")" in
-    bash)
-        ln -sf "$DOTS/bash_profile" "$HOME/.bash_profile"
-        echo "Linked bash_profile"
-        echo "Done! Please run: source ~/.bash_profile"
-        ;;
-    zsh)
-        ln -sf "$DOTS/zshrc" "$HOME/.zshrc"
-        echo "Linked zshrc"
-        echo "Done! Please run: source ~/.zshrc"
-        ;;
-    *)
-        echo "Unsupported shell: $SHELL"
-        exit 1
-        ;;
+bash)
+    ln -sf "$DOTS/bash_profile" "$HOME/.bash_profile"
+    echo "Linked bash_profile"
+    echo "Done! Please run: source ~/.bash_profile"
+    ;;
+zsh)
+    ln -sf "$DOTS/zshrc" "$HOME/.zshrc"
+    echo "Linked zshrc"
+    echo "Done! Please run: source ~/.zshrc"
+    ;;
+*)
+    echo "Unsupported shell: $SHELL"
+    exit 1
+    ;;
 esac

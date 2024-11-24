@@ -3,12 +3,12 @@ dots="$HOME/.dotfiles"
 
 # Load common shell files
 for file in "$dots/shell"/*.sh; do
-   [ -r "$file" ] && . "$file"
+    [ -r "$file" ] && . "$file"
 done
 
 # Load programs
 for file in "$dots/programs"/*.sh; do
-   [ -r "$file" ] && . "$file"
+    [ -r "$file" ] && . "$file"
 done
 
 # zsh specific settings

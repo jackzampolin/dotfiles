@@ -4,14 +4,14 @@
 # Platform-Specific Configuration
 #
 case "$(uname)" in
-   'Linux')
-       alias pbcopy="xclip -selection clipboard"
-       alias pbpaste="xclip -selection clipboard -o"
-       alias f='xdg-open'
-       ;;
-   'Darwin')
-       alias f='open -a Finder'
-       ;;
+'Linux')
+   alias pbcopy="xclip -selection clipboard"
+   alias pbpaste="xclip -selection clipboard -o"
+   alias f='xdg-open'
+   ;;
+'Darwin')
+   alias f='open -a Finder'
+   ;;
 esac
 
 #
@@ -39,18 +39,18 @@ alias cdgh="cd $GITHUB/"
 # Common Shortcuts
 #
 # Basic commands
-alias e='code'                  # Editor
-alias c='clear'                 # Clear screen
-alias ls='ls -AFCG'            # Enhanced ls
-alias tf='terraform'           # Terraform
-alias weather='curl wttr.in'   # Weather info
-alias hgrep='history | grep'   # Search history
+alias e='code'               # Editor
+alias c='clear'              # Clear screen
+alias ls='ls -AFCG'          # Enhanced ls
+alias tf='terraform'         # Terraform
+alias weather='curl wttr.in' # Weather info
+alias hgrep='history | grep' # Search history
 
 # Shell reload
 if [ -n "$ZSH_VERSION" ]; then
-    alias r='source ~/.zshrc'
+   alias r='source ~/.zshrc'
 else
-    alias r='source ~/.bash_profile'
+   alias r='source ~/.bash_profile'
 fi
 
 #

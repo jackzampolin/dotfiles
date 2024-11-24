@@ -34,7 +34,7 @@ __set_virtualenv() {
 
 # Git prompt
 __git_prompt() {
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
         return 0
     fi
     git_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
@@ -55,7 +55,7 @@ __git_prompt() {
 
 # Set prompt based on shell
 if [ -n "$ZSH_VERSION" ]; then
-    setopt PROMPT_SUBST   # Enable prompt substitution
+    setopt PROMPT_SUBST # Enable prompt substitution
     PROMPT='%F{red}%1~%f$(__git_prompt) :> '
 else
     PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(__git_prompt)\[\033[0m\]:> '
