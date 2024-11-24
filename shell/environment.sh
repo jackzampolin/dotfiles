@@ -17,6 +17,19 @@ c_git_dirty='\[\e[0;31m\]'
 BLUE="\[\033[1;34m\]"
 COLOR_NONE="\[\e[0m\]"
 
+#
+# Prompt and Environment
+#
+# Set virtualenv prompt
+__set_virtualenv() {
+    if [ -n "$VIRTUAL_ENV" ]; then
+        PYTHON_VIRTUALENV="${BLUE}[$(basename "$VIRTUAL_ENV")]${COLOR_NONE} "
+    else
+        PYTHON_VIRTUALENV=""
+    fi
+}
+
+
 # Set Python virtualenv in prompt if active
 __set_virtualenv
 

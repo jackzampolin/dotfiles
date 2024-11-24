@@ -17,23 +17,24 @@ esac
 #
 # GitHub Navigation
 #
-# Organization directories
-declare -A gh_dirs=(
-   ["i"]="iqlusioninc"
-   ["j"]="jackzampolin"
-   ["c"]="cosmos"
-   ["a"]="althea-net"
-   ["o"]="ovrclk"
-   ["r"]="rollchains"
-   ["p"]="peggyjv"
-   ["t"]="tendermint"
-   ["bi"]="blockstackinc"
-   ["s"]="strangelove-ventures"
+
+# Define the GitHub directories
+github_dirs=(
+    "iqlusioninc"
+    "jackzampolin"
+    "cosmos"
+    "althea-net"
+    "ovrclk"
+    "rollchains"
+    "peggyjv"
+    "tendermint"
+    "blockstackinc"
+    "strangelove-ventures"
 )
 
 # Create cd aliases for each directory
-for key in "${!gh_dirs[@]}"; do
-   alias "cd${key}"="cd $GITHUB/${gh_dirs[$key]}"
+for i in "${!github_dirs[@]}"; do
+    alias "cd${i}"="cd $GITHUB/${github_dirs[$i]}"
 done
 alias cdgh="cd $GITHUB/"
 

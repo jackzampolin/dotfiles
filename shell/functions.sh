@@ -121,18 +121,6 @@ sync() {
 }
 
 #
-# Prompt and Environment
-#
-# Set virtualenv prompt
-__set_virtualenv() {
-    if [ -n "$VIRTUAL_ENV" ]; then
-        PYTHON_VIRTUALENV="${BLUE}[$(basename "$VIRTUAL_ENV")]${COLOR_NONE} "
-    else
-        PYTHON_VIRTUALENV=""
-    fi
-}
-
-#
 # Blockchain Tools
 #
 wenupgrade() {
