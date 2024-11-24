@@ -56,8 +56,7 @@ __git_prompt() {
 # Set prompt based on shell
 if [ -n "$ZSH_VERSION" ]; then
     setopt PROMPT_SUBST   # Enable prompt substitution
-    PROMPT='
-%F{red}%1~%f$(__git_prompt) :> '
+    PROMPT='%F{red}%1~%f$(__git_prompt) :> '
 else
     PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(__git_prompt)\[\033[0m\]:> '
 fi
