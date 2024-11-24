@@ -22,9 +22,6 @@ function nh() {
             echo "Started $DESC (PID: $!)"
             echo "Log: $LOG"
             ;;
-        # ... rest of the nh function stays the same ...
-    esac
-
        "ls")
            echo "Running processes:"
            for pid_file in "$NOHUP_DIR"/*.pid; do
