@@ -10,12 +10,12 @@ export ENVIRONMENT_LOADED=1
 # Prompt Configuration
 #
 # Color definitions for git prompt and PS1
-c_reset="%{$reset_color%}"
-c_path="%{$fg[red]%}"
-c_git_clean="%{$fg[green]%}"
-c_git_dirty="%{$fg[red]%}"
-BLUE="%{$fg[blue]%}"
-COLOR_NONE="%{$reset_color%}"
+c_reset="\e[0m"
+c_path="\e[0;31m"
+c_git_clean="\e[0;32m"
+c_git_dirty="\e[0;31m"
+BLUE="\e[1;34m"
+COLOR_NONE="\e[0m"
 
 # Set virtualenv prompt
 __set_virtualenv() {
@@ -30,19 +30,19 @@ __set_virtualenv() {
 __git_prompt() {
     local git_status="$(git status --porcelain 2>/dev/null)"
     if [ -n "$git_status" ]; then
-        echo -e " ${c_git_dirty}±${c_reset}"
+        echo -e "${c_git_dirty}±${c_reset}"
     else
-        echo -e " ${c_git_clean}✓${c_reset}"
+        echo -e "${c_git_clean}✓${c_reset}"
     fi
 }
 
 # Configure prompt
 if [ -n "$BASH_VERSION" ]; then
-    PROMPT_COMMAND='__git_prompt; PS1="\n${c_path}\w${c_reset}\$(__git_prompt) :> "'
+    PROMPT_COMMAND='__set_virtualenv; __git_prompt; PS1="\n${c_path}\w${c_reset} \$(__git_prompt) :> "'
 elif [ -n "$ZSH_VERSION" ]; then
     setopt PROMPT_SUBST
-    PROMPT="%n@%m %{$c_path%}%~%{$c_reset%}\$(__git_prompt) :> "
-    RPROMPT="${PYTHON_VIRTUALENV}"
+    PROMPT="%n@%m %{$c_path%}%~%{$c_reset%} \$(__git_prompt) :> "
+    RPROMPT="%{$PYTHON_VIRTUALENV%}"
 else
     PROMPT="\n\w \$ "
 fi
