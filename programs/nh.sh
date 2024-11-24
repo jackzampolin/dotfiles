@@ -10,13 +10,17 @@ function nh() {
             local LOG="$NOHUP_DIR/${DESC}.log"
             local PID_FILE="$NOHUP_DIR/${DESC}.pid"
             
-            # Source shell functions and venv
-            local SETUP_CMD="source $HOME/.$(basename $SHELL)rc; "
+            # Get absolute path to current venv
+            local VENV_PATH="$HOME/.venvs/$(basename "$VIRTUAL_ENV")"
+            # Get absolute path to dotfiles
+            local DOTS="$HOME/.dotfiles"
+            
+            # Construct the command
+            local SETUP_CMD="source $DOTS/shell/*.sh; "
             if [ -n "$VIRTUAL_ENV" ]; then
-                SETUP_CMD+="source $VIRTUAL_ENV/bin/activate; "
+                SETUP_CMD+="source $VENV_PATH/bin/activate; "
             fi
             
-            # Run command with full environment
             nohup bash -c "$SETUP_CMD $*" > "$LOG" 2>&1 &
             echo $! > "$PID_FILE"
             echo "Started $DESC (PID: $!)"
