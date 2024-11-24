@@ -18,6 +18,7 @@ esac
 # GitHub Navigation
 #
 
+
 # Define the GitHub directories
 github_dirs=(
     "iqlusioninc"
@@ -33,9 +34,10 @@ github_dirs=(
 )
 
 # Create cd aliases for each directory
-for i in "${!github_dirs[@]}"; do
-    alias "cd${i}"="cd $GITHUB/${github_dirs[$i]}"
+for key in "${(@k)github_dirs}"; do
+    alias "cd$key"="cd $GITHUB/${github_dirs[$key]}"
 done
+
 alias cdgh="cd $GITHUB/"
 
 #
