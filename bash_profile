@@ -1,8 +1,12 @@
 # Define dotfiles location
 dots="$HOME/.dotfiles"
 
-# Load common shell files
+# Load environment first so later files can safely use exported vars.
+[ -r "$dots/shell/environment.sh" ] && . "$dots/shell/environment.sh"
+
+# Load remaining common shell files
 for file in "$dots/shell"/*.sh; do
+  [ "$file" = "$dots/shell/environment.sh" ] && continue
   [ -r "$file" ] && . "$file"
 done
 

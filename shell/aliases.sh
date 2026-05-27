@@ -23,17 +23,11 @@ esac
 #
 
 # Create individual cd aliases for each directory
-alias cdi="cd $GITHUB/iqlusioninc"
-alias cdj="cd $GITHUB/jackzampolin"
-alias cdc="cd $GITHUB/cosmos"
-alias cda="cd $GITHUB/althea-net"
-alias cdo="cd $GITHUB/ovrclk"
-alias cdr="cd $GITHUB/rollchains"
-alias cdp="cd $GITHUB/peggyjv"
-alias cdt="cd $GITHUB/tendermint"
-alias cdbi="cd $GITHUB/blockstackinc"
-alias cds="cd $GITHUB/strangelove-ventures"
-alias cdgh="cd $GITHUB/"
+alias cdj='cd $GITHUB/jackzampolin'
+alias cds='cd $GITHUB/sourcenetwork'
+alias cdsi='cd $GITHUB/source'
+alias cdsl='cd $GITHUB/strangelove-ventures'
+alias cdgh='cd $GITHUB/'
 
 #
 # Common Shortcuts
