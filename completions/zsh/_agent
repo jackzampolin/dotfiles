@@ -1,0 +1,18 @@
+#compdef agent
+# Completion for the `agent` shortcut (programs/agent.sh).
+# Keep the name list in sync with _AGENT_NAMES / _agent_addr there.
+
+_agent() {
+    local -a subcommands agents
+    subcommands=(
+        'ls:list deployed agents and liveness'
+        'help:show usage'
+    )
+    agents=(
+        'amy:Amy — studio-1 general-purpose agent'
+    )
+    _describe -t agents 'agent' agents
+    _describe -t subcommands 'subcommand' subcommands
+}
+
+_agent "$@"
