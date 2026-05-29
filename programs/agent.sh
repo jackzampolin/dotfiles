@@ -10,7 +10,7 @@
 _agent_addr() {
     case "$1" in
     amy)               echo "100.69.4.79 9601" ;;
-    # studio-1-steward) echo "100.69.4.79 <port>" ;;
+    studio-1-steward)  echo "100.69.4.79 9602" ;;
     # mini-1-steward)   echo "100.102.157.108 <port>" ;;
     *) return 1 ;;
     esac
@@ -18,14 +18,14 @@ _agent_addr() {
 
 # Registered agent names, in display order. Keep in sync with _agent_addr
 # (and the completions/zsh/_agent completion).
-_AGENT_NAMES="amy"
+_AGENT_NAMES=(amy studio-1-steward)
 
 function agent() {
     case "$1" in
     ls | "")
+        local addr host port state
         echo "Deployed agents (Codex shim):"
-        for a in $_AGENT_NAMES; do
-            local addr host port state
+        for a in "${_AGENT_NAMES[@]}"; do
             addr="$(_agent_addr "$a")" || continue
             host="${addr%% *}"
             port="${addr##* }"
