@@ -11,6 +11,7 @@ _agent() {
     agents=(
         'amy:Amy — studio-1 general-purpose agent'
         'studio-1-steward:Studio 1 host steward — interactive r/w (codex)'
+        'observability-steward:Observability service steward — interactive r/w (codex)'
     )
     _describe -t agents 'agent' agents
     _describe -t subcommands 'subcommand' subcommands

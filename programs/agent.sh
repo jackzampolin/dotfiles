@@ -9,8 +9,9 @@
 # Add stewards here as their codex shim comes online.
 _agent_addr() {
     case "$1" in
-    amy)               echo "100.69.4.79 9601" ;;
-    studio-1-steward)  echo "100.69.4.79 9602" ;;
+    amy)                   echo "100.69.4.79 9601" ;;
+    studio-1-steward)      echo "100.69.4.79 9602" ;;
+    observability-steward) echo "100.69.4.79 9603" ;;
     # mini-1-steward)   echo "100.102.157.108 <port>" ;;
     *) return 1 ;;
     esac
@@ -18,7 +19,7 @@ _agent_addr() {
 
 # Registered agent names, in display order. Keep in sync with _agent_addr
 # (and the completions/zsh/_agent completion).
-_AGENT_NAMES=(amy studio-1-steward)
+_AGENT_NAMES=(amy studio-1-steward observability-steward)
 
 function agent() {
     case "$1" in
