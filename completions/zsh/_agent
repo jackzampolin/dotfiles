@@ -13,6 +13,7 @@ _agent() {
         'studio-1-steward:Studio 1 host steward — interactive r/w (codex)'
         'observability-steward:Observability service steward — interactive r/w (codex)'
         'coding-memory-steward:Coding memory steward — interactive Q&A over coding sessions (codex)'
+        'coding-data-steward:Coding data ingest steward — interactive r/w (codex)'
     )
     _describe -t agents 'agent' agents
     _describe -t subcommands 'subcommand' subcommands
