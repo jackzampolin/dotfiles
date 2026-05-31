@@ -13,6 +13,8 @@ _agent_addr() {
     studio-1-steward)      echo "100.69.4.79 9602" ;;
     observability-steward) echo "100.69.4.79 9603" ;;
     coding-steward)        echo "100.69.4.79 9604" ;;
+    hf-data-steward)       echo "100.69.4.79 9605" ;;
+    x-data-steward)        echo "100.69.4.79 9606" ;;
     # mini-1-steward)   echo "100.102.157.108 <port>" ;;
     *) return 1 ;;
     esac
@@ -20,7 +22,7 @@ _agent_addr() {
 
 # Registered agent names, in display order. Keep in sync with _agent_addr
 # (and the completions/zsh/_agent completion).
-_AGENT_NAMES=(amy studio-1-steward observability-steward coding-steward)
+_AGENT_NAMES=(amy studio-1-steward observability-steward coding-steward hf-data-steward x-data-steward)
 
 function agent() {
     case "$1" in
