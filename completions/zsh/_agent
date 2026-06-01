@@ -18,6 +18,8 @@ _agent() {
         'mini-1-steward:mini-1 host steward — interactive r/w (codex)'
         'mini-2-steward:mini-2 host steward — interactive r/w (codex)'
         'workstation-1-steward:workstation-1 host steward (Linux/systemd) — interactive r/w (codex)'
+        'spark-1-steward:spark-1 host steward (DGX/systemd) — interactive r/w (codex)'
+        'spark-2-steward:spark-2 host steward (DGX/systemd) — interactive r/w (codex)'
     )
     _describe -t agents 'agent' agents
     _describe -t subcommands 'subcommand' subcommands

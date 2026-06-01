@@ -18,13 +18,15 @@ _agent_addr() {
     mini-1-steward)        echo "100.102.157.108 9607" ;;
     mini-2-steward)        echo "100.107.77.21 9608" ;;
     workstation-1-steward) echo "100.73.235.38 9609" ;;
+    spark-1-steward)       echo "100.74.68.88 9610" ;;
+    spark-2-steward)       echo "100.86.62.91 9611" ;;
     *) return 1 ;;
     esac
 }
 
 # Registered agent names, in display order. Keep in sync with _agent_addr
 # (and the completions/zsh/_agent completion).
-_AGENT_NAMES=(amy studio-1-steward observability-steward coding-steward hf-data-steward x-data-steward mini-1-steward mini-2-steward workstation-1-steward)
+_AGENT_NAMES=(amy studio-1-steward observability-steward coding-steward hf-data-steward x-data-steward mini-1-steward mini-2-steward workstation-1-steward spark-1-steward spark-2-steward)
 
 function agent() {
     case "$1" in
