@@ -20,6 +20,9 @@ _agent() {
         'workstation-1-steward:workstation-1 host steward (Linux/systemd) — interactive r/w (codex)'
         'spark-1-steward:spark-1 host steward (DGX/systemd) — interactive r/w (codex)'
         'spark-2-steward:spark-2 host steward (DGX/systemd) — interactive r/w (codex)'
+        'studio-2-steward:Studio 2 host steward — interactive r/w (codex)'
+        'strangenas-steward:StrangeNas model-cache NAS steward (Synology/systemd) — interactive r/w (codex)'
+        'hetzner-vps-steward:hetzner-vps cloud host steward (Linux/systemd) — interactive r/w (codex)'
     )
     _describe -t agents 'agent' agents
     _describe -t subcommands 'subcommand' subcommands
