@@ -38,3 +38,9 @@ The inventory of this repo is as follows:
 as Cargo's global compiler wrapper. Interactive shells use a host-local cache
 under `~/.cache/sccache`, capped at 256 GiB. Workspace-local Cargo target
 directories remain disposable build state rather than a shared cache.
+
+### Hugging Face CLI
+
+`bootstrap.sh` installs `uv` through Homebrew when necessary and provisions the
+official `hf` CLI with `uv tool install huggingface-hub`. The CLI lives under
+`~/.local/bin`, which the shared shell environment already adds to `PATH`.
