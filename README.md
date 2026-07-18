@@ -2,12 +2,13 @@
 
 This repo contains Jack's `.dotfiles`. Everything to control the terminal environment. To install initially run:
 
+```bash
+git clone git@github.com:jackzampolin/dotfiles ~/.dotfiles
+SHELL=/bin/zsh ~/.dotfiles/bootstrap.sh
+source ~/.zshrc
 ```
-$ git clone git@github.com/jackzampolin/dotfiles ~/.dotfiles
-$ cp ~/.dotfiles/bash_profile ~/.bash_profile
-$ source ~/.bash_profile
-$ sync
-```
+
+The bootstrap is idempotent and can be rerun after pulling changes.
 
 The inventory of this repo is as follows:
 
@@ -15,6 +16,8 @@ The inventory of this repo is as follows:
 - `bashrc`: Contains one off functions like `extract`, `mcd`, and `sync`. If you need to define a new function, start here.
 - `aliases.bash`: Contains all the different bash aliases. Mainly used for project directory shortcuts.
 - `gitconfig`: A copy of my global gitconfig to be synced to `$HOME/.gitconfig`.
+- `cargo/config.toml`: Global Cargo defaults. The bootstrap links it into
+  `~/.cargo/config.toml` after ensuring sccache is available.
 - `environment.bash`: Set `ENV` here. Also contains `$PS1` and `$PATH`.
 - `secrets.bash`: API Keys and such that are set as `ENV`, not kept in version control. Also programs not for git history
 - `programs/`: A folder for fun programs!
@@ -28,3 +31,10 @@ The inventory of this repo is as follows:
 - Add the secrets folder with sync to Google Storage.
 - Add `install` program and have list of programs to install when bootsrapping a new machine.
 - Add `curl https://githubusercontent | bash -` install for servers
+
+### Rust build cache
+
+`bootstrap.sh` installs sccache through Homebrew when necessary and enables it
+as Cargo's global compiler wrapper. Interactive shells use a host-local cache
+under `~/.cache/sccache`, capped at 256 GiB. Workspace-local Cargo target
+directories remain disposable build state rather than a shared cache.

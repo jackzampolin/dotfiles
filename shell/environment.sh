@@ -62,6 +62,12 @@ export GOBIN=$GOPATH/bin
 export GITHUB=$GOPATH/src/github.com
 export GO111MODULE=on
 
+# Rust compiler cache. Cargo's wrapper is managed by cargo/config.toml; these
+# settings keep the per-host cache explicit, bounded, and fail-open.
+export SCCACHE_DIR="${SCCACHE_DIR:-$HOME/.cache/sccache}"
+export SCCACHE_CACHE_SIZE="${SCCACHE_CACHE_SIZE:-256G}"
+export SCCACHE_IGNORE_SERVER_IO_ERROR="${SCCACHE_IGNORE_SERVER_IO_ERROR:-1}"
+
 # Git GPG signing
 export GPG_TTY=$(tty)
 
