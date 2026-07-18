@@ -10,12 +10,11 @@ function nh() {
         local LOG="$NOHUP_DIR/${DESC}.log"
         local PID_FILE="$NOHUP_DIR/${DESC}.pid"
 
-        # Source zshrc and venv, then run hf function directly from programs
+        # Source zshrc and the active virtual environment before running.
         local SETUP_CMD="source $HOME/.$(basename $SHELL)rc; "
         if [ -n "$VIRTUAL_ENV" ]; then
             SETUP_CMD+="source $HOME/.venvs/$(basename "$VIRTUAL_ENV")/bin/activate; "
         fi
-        SETUP_CMD+="source $HOME/.dotfiles/programs/hf.sh; "
 
         nohup bash -c "$SETUP_CMD $*" >"$LOG" 2>&1 &
         echo $! >"$PID_FILE"

@@ -8,6 +8,22 @@ DOTS=$(cd "$(dirname "$0")" && pwd)
 
 echo "Setting up dotfiles..."
 
+find_brew() {
+    if command -v brew >/dev/null 2>&1; then
+        command -v brew
+        return
+    fi
+    for candidate in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+        if [ -x "$candidate" ]; then
+            printf '%s\n' "$candidate"
+            return
+        fi
+    done
+    return 1
+}
+
+BREW=$(find_brew || true)
+
 # Create necessary directories
 mkdir -p "$HOME/.venvs"
 mkdir -p "$HOME/.nohup"
@@ -55,14 +71,6 @@ find_sccache() {
 
 SCCACHE_BIN=$(find_sccache || true)
 if [ -z "$SCCACHE_BIN" ]; then
-    BREW=""
-    if command -v brew >/dev/null 2>&1; then
-        BREW=$(command -v brew)
-    elif [ -x /opt/homebrew/bin/brew ]; then
-        BREW=/opt/homebrew/bin/brew
-    elif [ -x /usr/local/bin/brew ]; then
-        BREW=/usr/local/bin/brew
-    fi
     if [ -n "$BREW" ]; then
         HOMEBREW_NO_AUTO_UPDATE=1 "$BREW" install sccache
         SCCACHE_BIN=$(find_sccache || true)
@@ -84,4 +92,51 @@ if [ -n "$SCCACHE_BIN" ]; then
     echo "Linked Cargo config with sccache wrapper"
 else
     echo "sccache is unavailable; left Cargo config unchanged"
+fi
+
+# Use uv's official Hugging Face CLI instead of the retired shell helper.
+find_uv() {
+    if command -v uv >/dev/null 2>&1; then
+        command -v uv
+        return
+    fi
+    for candidate in "$HOME/.local/bin/uv" /opt/homebrew/bin/uv /usr/local/bin/uv; do
+        if [ -x "$candidate" ]; then
+            printf '%s\n' "$candidate"
+            return
+        fi
+    done
+    return 1
+}
+
+find_hf() {
+    if command -v hf >/dev/null 2>&1; then
+        command -v hf
+        return
+    fi
+    for candidate in "$HOME/.local/bin/hf" /opt/homebrew/bin/hf /usr/local/bin/hf; do
+        if [ -x "$candidate" ]; then
+            printf '%s\n' "$candidate"
+            return
+        fi
+    done
+    return 1
+}
+
+UV_BIN=$(find_uv || true)
+if [ -z "$UV_BIN" ] && [ -n "$BREW" ]; then
+    HOMEBREW_NO_AUTO_UPDATE=1 "$BREW" install uv
+    UV_BIN=$(find_uv || true)
+fi
+
+HF_BIN=$(find_hf || true)
+if [ -z "$HF_BIN" ] && [ -n "$UV_BIN" ]; then
+    "$UV_BIN" tool install huggingface-hub
+    HF_BIN=$(find_hf || true)
+fi
+
+if [ -n "$HF_BIN" ]; then
+    echo "Hugging Face CLI available at $HF_BIN"
+else
+    echo "Hugging Face CLI is unavailable; install uv and rerun bootstrap.sh"
 fi
